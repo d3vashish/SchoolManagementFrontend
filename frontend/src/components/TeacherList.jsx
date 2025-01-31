@@ -94,7 +94,13 @@ const TeacherList = ({ teachers, onEdit, onDelete, onSelect }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentTeachers.map((teacher) => {
           const teacherClasses =
-            teacher.assignedClasses?.map((classId) => classId) || []; // Get the classes for the current teacher
+            teacher.assignedClasses
+              ?.map((classId) => {
+                // Find the class name that corresponds to the classId
+                console.log(classId);
+                return classId ? classId.name : null; // If found, return the name; otherwise, return null
+              })
+              .filter(Boolean) || []; // Get the classes for the current teacher
           return (
             <div
               key={teacher.id}
